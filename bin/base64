@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+# base64 encoding for css
+require 'rubygems'
+require 'base64'
+require 'shared-mime-info'
+
+file = ARGV[0]
+
+type = file['png'] ? 'png' : 'jpeg'
+
+o = Base64.encode64(File.read(file)).gsub(/\n/,'')
+
+system("printf 'data:image/#{type};base64,#{o}' | pbcopy")
+puts "Base64 copied to clipboard"
